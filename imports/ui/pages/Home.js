@@ -15,13 +15,11 @@ class Home extends Component {
     const Address = document.getElementById('Address').value;
     const Description = document.getElementById('description').value;
     const img = document.getElementById('image').files;
-    console.log(img)
     if(window.FileReader) {
       var file  = img[0];
       var reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = function (e) {
-        console.log(e.target.result)
         const data = {
           Name,
           Address,

@@ -36,10 +36,10 @@ Meteor.methods({
     check(data, Object);
 
     const property = Properties.findOne(data._id);
-    if ( property.owner !== ! this.userId) {
+    if ( property.owner !== this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
+    console.log(data)
     Properties.update( data._id, {
       $set: {
         name: data.Name,
