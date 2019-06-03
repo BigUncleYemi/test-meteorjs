@@ -1,17 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 
 class Nav extends React.Component {
 
   Logout = (e) => {
-    e.preventDefault();
     Meteor.logout((err) => {
       if (err) {
         console.log(err.reason);
       } else {
-        this.props.history.push('/');
+        <Redirect to="/" />
       }
     });
   }
@@ -27,17 +26,17 @@ class Nav extends React.Component {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarsExample09">
-          <ul className="navbar-nav mr-auto">
+          <ul className="navbar-nav ml-auto">
             {currentUser ?
               (
                 <>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/login">
+                    <Link className="nav-link" to="/home">
                       {currentUser.emails[0].address}
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="btn btn-outline-dark" href="#" onClick={this.Logout}>Logout</a>
+                    <a className="btn btn-outline-dark" href="/" onClick={this.Logout}>Logout</a>
                   </li>
                 </>
               )

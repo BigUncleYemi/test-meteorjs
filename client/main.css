@@ -45,6 +45,7 @@ body {
 .add-property{
   border: 2px dashed #0000007d !important;
   height: 300px;
+  min-width: 300px;
 }
 
 .add-property > p.m-auto {
@@ -54,8 +55,16 @@ body {
   left: 0;
   right: 0;
   height: 80%;
-  width: 20%;
+  width: 30%;
   font-size: 10rem;
   color: #0000007d;
+  text-align: center;
 }
 
+.showEdit{
+  visibility: hidden;
+}
+
+.card:hover .showEdit{
+  visibility: visible;
+}

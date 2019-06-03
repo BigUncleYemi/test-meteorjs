@@ -1,25 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import $ from 'jquery';
 
 class AddProperty extends Component {
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-
-    const Name = document.getElementById('Name').value;
-    const Address = document.getElementById('Address').value;
-    const Description = document.getElementById('description').value;
-    const img = document.getElementById('image').value;
-    
-  
-  }
-
   render() {
     return (
       <div className="modal fade" id="addProperty" tabIndex="-1" role="dialog" aria-labelledby="addPropertyTitle" aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">
             <div className="modal-body">
-              <form className="form py-5" onSubmit={this.handleSubmit}>
+              <form className="form py-5" id="AddProp" onSubmit={this.props.handleSubmit}>
                 <h1 className="h3 mb-3 font-weight-normal">Add New Property</h1>
                 <div className="form-group">
                   <label htmlFor="Name">
@@ -50,9 +39,9 @@ class AddProperty extends Component {
                   <label htmlFor="Description">
                     Description
                   </label>
-                  <textarea 
-                    className="form-control" 
-                    id="description" 
+                  <textarea
+                    className="form-control"
+                    id="description"
                     placeholder="Property Description"
                     col={5}
                     required

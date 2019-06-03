@@ -4,15 +4,60 @@ import Footer from '../components/Footer';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import AddProperty from '../components/Addproperty';
+import Properties from '../../api/properties';
+import PropertyCard from '../components/PropertyCard';
 
 class Home extends Component {
+  handleAddPropertySubmit = (e) => {
+    e.preventDefault();
+
+    const Name = document.getElementById('Name').value;
+    const Address = document.getElementById('Address').value;
+    const Description = document.getElementById('description').value;
+    const img = document.getElementById('image').files;
+    console.log(img)
+    if(window.FileReader) {
+      var file  = img[0];
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = function (e) {
+        console.log(e.target.result)
+        const data = {
+          Name,
+          Address,
+          Description,
+          image: e.target.result,
+        };
+        Meteor.call('property.insert', data);
+      }
+    }
+    $('#addProperty').modal('hide');
+    document.getElementById("AddProp").reset();
+    alert('Property added');
+  }
+
+  renderProperties() {
+    let filteredProperties = this.props.properties;
+    return filteredProperties.map((properties) => {
+ 
+      return (
+        <PropertyCard
+          key={properties._id}
+          data={properties}
+        />
+      );
+    });
+  }
+
   render() {
 
-    const { currentUser } = this.props;
+    const { currentUser, properties } = this.props;
 
     return (
       <>
-        <AddProperty />
+        <AddProperty
+         handleSubmit={this.handleAddPropertySubmit}
+        />
         <Nav />
         <section style={{height: 300,position: 'relative'}}>
           <div className="bg-owner h-100">
@@ -26,7 +71,8 @@ class Home extends Component {
         </section>
         <section className="container">
           <div className="row py-5 px-3">
-            <button className="btn col-md-3 position-relative add-property"  data-toggle="modal" data-target="#addProperty">
+            {this.renderProperties()}
+            <button className="btn m-3 col-md-3 position-relative add-property"  data-toggle="modal" data-target="#addProperty">
               <p className="m-auto">+</p>
             </button>
           </div>
@@ -38,7 +84,9 @@ class Home extends Component {
 }
 
 export default withTracker(() => {
+  Meteor.subscribe('properties');
   return {
     currentUser: Meteor.user(),
+    properties: Properties.find({}).fetch(),
   };
 })(Home);
