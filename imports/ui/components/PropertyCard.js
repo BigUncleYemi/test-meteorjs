@@ -25,12 +25,11 @@ export default class PropertyCard extends Component {
     const img = document.getElementById('Editimage').files;
     if(window.FileReader) {
       if(img.length > 0){
-        var file  = img[0];
-        var reader = new FileReader();
-        var id = this.props.data._id;
+        const file  = img[0];
+        const reader = new FileReader();
+        const id = this.props.data._id;
         reader.readAsDataURL(file);
         reader.onloadend = function (e) {
-          console.log(e.target.result)
           const data = {
             Name,
             Address,
@@ -65,7 +64,7 @@ export default class PropertyCard extends Component {
 
     return (
       <div className="col-md-4 py-3">
-        <div className="card w-100">{console.log(data)}
+        <div className="card w-100">
           {!edit ?
             (
               <>

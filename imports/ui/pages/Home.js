@@ -16,8 +16,8 @@ class Home extends Component {
     const Description = document.getElementById('description').value;
     const img = document.getElementById('image').files;
     if(window.FileReader) {
-      var file  = img[0];
-      var reader = new FileReader();
+      const file  = img[0];
+      const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = function (e) {
         const data = {

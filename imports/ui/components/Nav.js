@@ -8,7 +8,7 @@ class Nav extends React.Component {
   Logout = (e) => {
     Meteor.logout((err) => {
       if (err) {
-        console.log(err.reason);
+        // console.log(err.reason);
       } else {
         <Redirect to="/" />
       }
